@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trip Locations Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      #name {
+        height: 100vh;
+        width: 100%;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="name"></div>
+    <script>
+      function initMap() {
+        var center = { lat: 3.2028, lng: 73.2207 };
+        var name = new google.maps.Map(document.getElementById("name"), {
+          zoom: 6,
+          center: center,
+          gestureHandling: "greedy",
+        });
+
+        var tripLocations = [
+          {
+            name: "Hanoi",
+            position: { lat: 21.0285, lng: 105.8544 },
+            icon: "https://maps.google.com/mapfiles/kml/shapes/capital_big.png",
+            link: "https://www.google.com/maps/place/Hanoi,+Vietnam",
+          },
+          {
+            name: "Ha Long Bay",
+            position: { lat: 20.9101, lng: 107.1839 },
+            icon: "https://maps.google.com/mapfiles/kml/shapes/fishing.png",
+            link: "https://www.google.com/maps/place/Ha+Long+Bay,+Vietnam",
+          },
+          {
+            name: "Hue",
+            position: { lat: 16.4637, lng: 107.5909 },
+            icon: "https://maps.google.com/mapfiles/kml/shapes/arts.png",
+            link: "https://www.google.com/maps/place/Hue,+Thua+Thien+Hue,+Vietnam",
+          },
+          {
+            name: "Da Nang",
+            position: { lat: 16.0544, lng: 108.2022 },
+            icon: "https://maps.google.com/mapfiles/kml/shapes/marina.png",
+            link: "https://www.google.com/maps/place/Da+Nang,+Vietnam",
+  },
+
+        ];
+
+        tripLocations.forEach((loc) => {
+          var mark= new google.maps.Marker({
+            position: loc.position,
+            map: map,
+            title: loc.name,
+            icon: {
+              url: loc.icon,
+              scaledSize: new google.maps.Size(30, 30),
+            },
+          });
+
+          var infoWindow = new google.maps.InfoWindow({
+            content: `<strong>${loc.name}</strong>`,
+          });
+
+          mark.addListener("click", () => {
+            infoWindow.open(name, mark);
+          });
+        });
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD0l9CxYEWk3euentOhDeDlYEqaBs52L0&callback=initMap"
+    ></script>
+  </body>
+</html>
